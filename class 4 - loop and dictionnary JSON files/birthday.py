@@ -18,6 +18,12 @@ while True:
     menu_selected=int(input("Type a number:"))
     #1 - Get a birthday date==========================================
     if menu_selected==1:
+        print("Here we have the list of the people into your birthday dictionnary")
+        for k in birthday_dic.keys():
+            printed_name_list = k.split(' ')
+            printed_name = printed_name_list[0].capitalize() + ' ' + printed_name_list[1].capitalize()
+            print(printed_name)
+        print("=====================================")
         # retrieve birthdate from a name
         search_name = input("Who 's birthday do you want to look up ? ")
         search_name = search_name.lower()
@@ -37,8 +43,16 @@ while True:
     #2 - Add a birthday date==========================================
     elif menu_selected==2:
         name=input("Insert a name:")
-        birthday_date=input("Insert a date:")
+        name=name.lower()
+        birthday_date=input("Insert a date (DD/MM/YYYY):")
         birthday_dic[name]=birthday_date
+
+        printed_name_list = name.split(' ')
+        printed_name = printed_name_list[0].capitalize() + ' ' + printed_name_list[1].capitalize()
+
+        #print the name
+        print("{}'s birthday is {}".format(printed_name, birthday_dic[name]))
+
     #3 - Delete birthday date=========================================
     elif menu_selected==3:
         print("Here we have the list of the people into your birthday dictionnary")
@@ -47,13 +61,14 @@ while True:
             printed_name = printed_name_list[0].capitalize() + ' ' + printed_name_list[1].capitalize()
             print(printed_name)
         print("=====================================")
-        name_delete=input("Insert the name you want to delete")
+        name_delete=input("Insert the name you want to delete:")
         name_delete=name_delete.lower()
         while name_delete not in birthday_dic:
-            print("This name does not exist. Please insert a new one")
-            name_delete = input("Insert the name you want to delete")
+            print("This name does not exist.")
+            name_delete = input("Insert the name you want to delete:")
             name_delete = name_delete.lower()
-        birthday_dic.pop("name_delete")
+        birthday_dic.pop(name_delete)
+        print("{} has been deleted".format(name_delete))
     #4 - Exit=============================================================
     elif menu_selected==4:
         updated_dic_json=json.dumps(birthday_dic)
